@@ -1,8 +1,14 @@
 {
   "name": "benevolentBartender",
-  "version": "",
+  "version": "1.0.0",
   "description": "find cocktails to make based on what you have at home",
-  "author": "",
+  "author": "PrimalParacosm",
+  "contributors": [
+    "Adisa Stewart",
+    "Victor Lau",
+    "Weiyi Lee",
+    "Ryan Breeden" 
+  ],
   "license": "",
   "engines": {
     "node": ">=6.4.0"
