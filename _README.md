@@ -1,23 +1,23 @@
-# Project Name
+# Benevolent Bartender
 
-> Pithy project description
+> Mixed Drink Finder with Recommendations
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Ryan Breeden
+  - Adisa Stewart
+  - Weiyi Lee
+  - Victor Lau
 
 ## Table of Contents
 
 1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Roadmap](#roadmap)
-1. [Contributing](#contributing)
+2. [Requirements](#requirements)
+3. [Development](#development)
+    a. [Installing Dependencies](#installing-dependencies)
+    b. [Tasks](#tasks)
+4. [Roadmap](#roadmap)
+5. [Contributing](#contributing)
 
 ## Usage
 
@@ -26,10 +26,10 @@
 ## Requirements
 
 - Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- MySQL 2.14.x
+- Express 4.15.x
+- React 15.6.x
+- ReactDom 15.6.x
 
 ## Development
 
@@ -38,9 +38,8 @@
 From within the root directory:
 
 ```sh
-npm install -g bower
-npm install
-bower install
+npm install 
+
 ```
 
 ### Roadmap
