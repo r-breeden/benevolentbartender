@@ -1,15 +1,20 @@
 {
-  "name": "",
+  "name": "benevolentBartender",
   "version": "",
-  "description": "",
+  "description": "find cocktails to make based on what you have at home",
   "author": "",
   "license": "",
   "engines": {
     "node": ">=6.4.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mysql": "^2.14.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.5.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
