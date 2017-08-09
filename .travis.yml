@@ -1,0 +1,4 @@
+languge: node_js
+node_js: 
+  - "stable"
+  - "7.8.0"
