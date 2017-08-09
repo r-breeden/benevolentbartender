@@ -15,7 +15,8 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "test": "mocha ./test --recursive"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -33,7 +34,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.7.2",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "webpack": "^3.5.1"
+    "webpack": "^3.5.1",
+    "mocha": "^3.5.0"
   },
   "babel": {
     "presets": [
