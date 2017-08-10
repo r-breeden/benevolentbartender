@@ -1,6 +1,8 @@
 {
   "name": "primalparacosm",
   "scripts": {
+    "react-dev": "webpack -d --watch",
+    "start": "node server/server.js"
   },
   "env": {
   },
