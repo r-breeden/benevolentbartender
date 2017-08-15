@@ -7,14 +7,26 @@ import { RecipeList } from './RecipeList.jsx';
 export class App extends React.Component{
   constructor(props) {
     super(props);
-    
+    this.state = {
+      ingredients: []
+    };
+
+    this.handler = this.handler.bind(this);
   }
+
+  handler(vetted){
+    this.setState({
+      ingredients: vetted
+    })
+    console.log('disco', this.state.ingredients);
+  }
+
   render(){
     return(
       <div>
         <h1>Benevolent Bartender</h1>
-        <SelectBox />
-        <RecipeList />
+        <SelectBox handler={this.handler}/>
+        <RecipeList list={this.state.ingredients}/>
       </div>
     );
   }

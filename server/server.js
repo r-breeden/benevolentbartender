@@ -20,6 +20,32 @@ app.get('/recipes', (req, res) => {
   });
 });
 
+app.get('/ingredients', (req, res) => {
+  var fakeDataIngredients = {ingredients: ['one', 'two', 'three', 'four']};
+  res.send(fakeDataIngredients);
+});
+
+app.post('/recipes', (req, res) => {
+  //assuming req.body is a string
+
+  var fakeData = {
+    ingredients: ['lemon', 'tequila', 'salt', 'regret'],
+    name: 'magarita',
+    instructions: 'How to make a margarita instructions',
+    url: 'hi, I should be a photo url'
+  }
+
+  res.send(fakeData);
+  // db.getRecipes(req.body, (err, data)=>{
+  //   if (err) {
+  //     res.status(500).send(err);
+  //   } else {
+  //     console.log('')
+  //     res.status(200).send(data);
+  //   }
+  // });
+});
+
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
