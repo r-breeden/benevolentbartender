@@ -21,4 +21,16 @@ var getRecipes = (ingStr, cb) => {
   });
 };
 
-module.exports = {getRecipes};
+var grabNamedRecipe = (name, cb) => {
+
+  connection.query(`SELECT * FROM recipes WHERE name = ${name}`, (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+
+};
+
+module.exports = {getRecipes, grabNamedRecipe};
