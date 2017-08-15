@@ -16,10 +16,12 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "start": "node server/server.js",
+    "init-ingred": "sh DB/getIngredientList.sh",
     "startTest": "webpack-dev-server",
     "test": "mocha ./test --recursive",
     "build": "webpack",
     "watch": "webpack -w"
+
   },
   "dependencies": {
     "axios": "^0.16.2",
