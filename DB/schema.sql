@@ -20,6 +20,9 @@ create table ingredients(
 );
 
 -- insert into recipes () values ();
+insert into recipes (name, instructions, ingredients, measurements, imageUrl)
+values ('incredible hulk', 'Stir Hpnotiq and Cognac together and pour over ice',
+'cognac,hpnotiq', '1oz,1oz', 'http://cf.ltkcdn.net/cocktails/images/std/175263-250x295-incredible-hulk-drink.jpg');
 
 -- recipe data should come back like 
 -- {
