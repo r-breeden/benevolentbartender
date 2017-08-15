@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { RecipeCar } from './RecipeCard.jsx';
+import { RecipeCard } from './RecipeCard.jsx';
 
 
 export class RecipeList extends React.Component{
