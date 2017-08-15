@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { CheckBox } from './CheckBox.jsx';
-import { MixItButton } from './MixItButton.jsx';
+import { SelectBox } from './SelectBox.jsx';
 import { RecipeList } from './RecipeList.jsx';
 
 
@@ -14,11 +13,7 @@ export class App extends React.Component{
     return(
       <div>
         <h1>Benevolent Bartender</h1>
-        <div>
-          <p>Select your ingredients</p>
-          <CheckBox />
-        </div>
-        <MixItButton />
+        <SelectBox />
         <RecipeList />
       </div>
     );
