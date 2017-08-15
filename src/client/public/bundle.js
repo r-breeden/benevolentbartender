@@ -22416,7 +22416,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.setState({
       ingredients: vetted
     });
-    console.log('disco', this.state.ingredients);
   }
 
   render() {
@@ -22465,7 +22464,6 @@ class SelectBox extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('onSubmit called');
     var vettedIngredients = [];
 
     //remove white spaces 
@@ -22478,8 +22476,6 @@ class SelectBox extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
       url: '/ingredients',
       type: 'GET',
       success: function (data) {
-        console.log('ingredients', data);
-
         //see which ingredients exist in db
         refactorText = refactorText.split(',');
         refactorText.forEach(function (item) {
@@ -22490,11 +22486,8 @@ class SelectBox extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
             }
           });
         });
-        console.log(vettedIngredients);
-
+        //pass vetted ingredients list to app component (this.state.ingredients in app component)
         self.props.handler(vettedIngredients);
-        //add the ingredients that exist to state
-        self.setState({ vetIngredients: vettedIngredients });
       },
       error: function (data) {
         console.log('get request FAILED', error);
@@ -22508,7 +22501,6 @@ class SelectBox extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
       data: this.state.vetIngredients,
       success: function (data) {
         console.log('post request SUCCESS');
-        console.log(data);
       },
       error: function (error) {
         console.log('post request FAILED', error);

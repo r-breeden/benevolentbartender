@@ -16,7 +16,6 @@ export class SelectBox extends React.Component{
 
   onSubmit(e){
     e.preventDefault();
-    console.log('onSubmit called');
     var vettedIngredients = [];
 
     //remove white spaces 
@@ -29,8 +28,6 @@ export class SelectBox extends React.Component{
       url:'/ingredients',
       type: 'GET',
       success: function(data){
-        console.log('ingredients', data);
-
         //see which ingredients exist in db
         refactorText = refactorText.split(',');
         refactorText.forEach( function (item) {
@@ -41,11 +38,8 @@ export class SelectBox extends React.Component{
             }
           })
         })
-        console.log(vettedIngredients);
-
+        //pass vetted ingredients list to app component (this.state.ingredients in app component)
         self.props.handler(vettedIngredients);
-        //add the ingredients that exist to state
-        self.setState({vetIngredients: vettedIngredients});
       },
       error: function(data){
         console.log('get request FAILED', error);
@@ -60,7 +54,6 @@ export class SelectBox extends React.Component{
       data: this.state.vetIngredients,
       success: function(data){
         console.log('post request SUCCESS');
-        console.log(data);
       },
       error: function(error){
         console.log('post request FAILED', error);

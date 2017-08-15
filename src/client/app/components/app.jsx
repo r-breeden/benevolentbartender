@@ -18,7 +18,6 @@ export class App extends React.Component{
     this.setState({
       ingredients: vetted
     })
-    console.log('disco', this.state.ingredients);
   }
 
   render(){
