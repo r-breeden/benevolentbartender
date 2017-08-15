@@ -1,5 +1,6 @@
 /**
-  IngredientsList is the last cURL pull from the API to generate the full list of data.
+  IngredientsList is the last cURL pull from the API to generate the full list of data. 
+  npm run init-ingred will initialize the ingredients
   Path is utilized to determine where fs will save
   Axios is utilized to create a request to the API to save
   fs is used to help save data back into the same location for our DB. 
@@ -10,6 +11,7 @@ const path = require('path');
 const axios = require('axios');
 const fs = require('file-system');
 const Promise = global.Promise;
+// const db = require('index.js');
 
 
 var writeJSON = (fileName, data) => {
@@ -24,6 +26,8 @@ var writeJSON = (fileName, data) => {
 
 }
 
+
+
 /** Object/Ingredient Name is Required to Pull API Correctly **/
 var getDrinks = function(ingredient) {
   
@@ -34,9 +38,12 @@ var getDrinks = function(ingredient) {
     params: {i: ingredient}
   }
 
+/** Option to either write locally or to save to DB **/ 
+
   return axios.get(url, options)
   .then((res) => {
-    var data = JSON.stringify(res.data)
+    var data = JSON.stringify(res.data);
+    //db.insertDrinks(data);
     writeJSON(ingredient.toLowerCase().replace(' ','_')+'_drinks.csv', data);
   })
   .catch((err) => {

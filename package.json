@@ -16,7 +16,8 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "start": "node server/server.js",
-    "test": "mocha ./test --recursive"
+    "test": "mocha ./test --recursive",
+    "init-ingred": "sh DB/getIngredientList.sh"
   },
   "dependencies": {
     "axios": "^0.16.2",
