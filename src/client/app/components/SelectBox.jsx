@@ -17,7 +17,6 @@ export class SelectBox extends React.Component{
   onSubmit(e){
     e.preventDefault();
     var vettedIngredients = [];
-
     //remove white spaces 
     var refactorText = this.state.text;
     refactorText = refactorText.replace(/\s/g,'');
@@ -40,25 +39,26 @@ export class SelectBox extends React.Component{
         })
         //pass vetted ingredients list to app component (this.state.ingredients in app component)
         self.props.handler(vettedIngredients);
+
+        self.setState({vetIngredients: vettedIngredients});
       },
       error: function(data){
         console.log('get request FAILED', error);
       }
     })
 
-
     //request recipes from list of ingredients that do exist
-    $.ajax({
-      url: '/recipes',
-      type: 'POST',
-      data: this.state.vetIngredients,
-      success: function(data){
-        console.log('post request SUCCESS');
-      },
-      error: function(error){
-        console.log('post request FAILED', error);
-      }
-    })
+    // $.ajax({
+    //   url: '/recipes',
+    //   type: 'POST',
+    //   data: this.state.vetIngredients,
+    //   success: function(data){
+    //     console.log('post request SUCCESS');
+    //   },
+    //   error: function(error){
+    //     console.log('post request FAILED', error);
+    //   }
+    // })
   }
 
   //grab value from text box and set state on change

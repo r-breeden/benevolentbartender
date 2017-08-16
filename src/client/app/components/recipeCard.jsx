@@ -9,11 +9,11 @@ export class RecipeCard extends React.Component{
 
   render(){
     return(
-      <div class='recipeCard'>
-        <span>  title  </span>
-        <span> image </span>
-        <span> description </span>
-      </div>
+      <ul>
+        <li>  {this.props.recipe.name}  </li>
+        <li> {this.props.recipe.url} </li>
+        <li> {this.props.recipe.ingredients} </li>
+      </ul>
     );
   }
 }
