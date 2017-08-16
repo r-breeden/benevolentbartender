@@ -14,6 +14,8 @@ export class App extends React.Component{
     this.handler = this.handler.bind(this);
   }
 
+  //hand this to child
+  //child able to set state
   handler(vetted){
     this.setState({
       ingredients: vetted
