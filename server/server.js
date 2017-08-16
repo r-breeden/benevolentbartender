@@ -20,6 +20,28 @@ app.get('/recipes', (req, res) => {
   });
 });
 
+app.post('/getRecipes', (req, res) => { 
+
+  var fakeRecipeList = {
+    array:[
+      {
+        ingredients: ['lemon', 'tequila', 'salt', 'regret'],
+        name: 'magarita',
+        instructions: 'How to make a margarita instructions',
+        url: '-hi, I should be a photo url-'
+      },
+      {
+        ingredients: ['lemon', 'tequila', 'salt', 'regret'],
+        name: 'magarita2',
+        instructions: 'How to make a margarita instructions',
+        url: '-hi, I should be a photo url-'
+      }
+    ]
+  }
+
+  res.send(fakeRecipeList);
+});
+
 app.get('/ingredients', (req, res) => {
   var fakeDataIngredients = {ingredients: ['one', 'two', 'three', 'four']};
   res.send(fakeDataIngredients);
