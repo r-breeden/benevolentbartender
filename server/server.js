@@ -21,6 +21,9 @@ app.get('/recipes', (req, res) => {
 });
 
 app.post('/getRecipes', (req, res) => { 
+  // console.log('HELLO', req.body);
+  // res.send();
+  //db.getRecipes();
 
   var fakeRecipeList = {
     array:[
@@ -38,7 +41,6 @@ app.post('/getRecipes', (req, res) => {
       }
     ]
   }
-
   res.send(fakeRecipeList);
 });
 
@@ -49,6 +51,7 @@ app.get('/ingredients', (req, res) => {
 
 app.post('/recipes', (req, res) => {
   //assuming req.body is a string
+  console.log('hiya', req.body);
 
   var fakeData = {
     ingredients: ['lemon', 'tequila', 'salt', 'regret'],

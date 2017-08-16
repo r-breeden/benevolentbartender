@@ -14,18 +14,17 @@ export class RecipeList extends React.Component{
     this.getRecipes();
   }
 
+  //get all recipes from db
   getRecipes(){
     var self = this; 
-    //get recipies from db
+
     $.ajax({
       url: '/getRecipes',
       type: 'POST',
       data: this.props.list,
       success: function(data) {
         console.log('post success');
-        console.log('dance', data);
         self.setState({recipes: data})
-        console.log('LEE', self.state.recipes);
       },
       error: function(error) {
         console.log('error', error);
@@ -35,7 +34,7 @@ export class RecipeList extends React.Component{
 
   render(){
     //render if there is anything to render
-    if(this.state.recipes.array[0] !== undefined){
+    if( this.state.recipes.array[0] !== undefined ){
       return(
         <div>
         {
@@ -45,6 +44,7 @@ export class RecipeList extends React.Component{
         }
         </div>
       );
+    //if no input this should not be called
     } else {
       return (<div>nothing</div>);
     }
