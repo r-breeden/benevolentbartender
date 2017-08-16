@@ -7,7 +7,7 @@ export class RecipeCard extends React.Component{
     return(
       <ul>
         <li>  {this.props.recipe.name}  </li>
-        <li> {this.props.recipe.url} </li>
+        <li> {this.props.recipe.imageUrl} </li>
         <li> {this.props.recipe.ingredients} </li>
       </ul>
     );

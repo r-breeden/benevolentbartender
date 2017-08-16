@@ -11,6 +11,7 @@ var getRecipes = (ingStr, cb) => {
   for (var i = 1; i < ingArr.length; i++) {
     queryStr += ` AND ingredients LIKE '%${ingArr[i]}%'`; 
   }
+  console.log('i checked this in repl.it ', queryStr);
   //query db
   connection.query(queryStr, (err, results) => {
     if (err) {

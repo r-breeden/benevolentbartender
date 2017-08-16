@@ -26,8 +26,6 @@ var writeJSON = (fileName, data) => {
 
 }
 
-
-
 /** Object/Ingredient Name is Required to Pull API Correctly **/
 var getDrinks = function(ingredient) {
   
