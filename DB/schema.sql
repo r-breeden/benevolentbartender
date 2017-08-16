@@ -16,7 +16,8 @@ create table recipes(
 create table ingredients(
   id int not null auto_increment,
   name varchar(100),
-  primary key (id)
+  primary key (id),
+  unique key (name)
 );
 
 -- insert into recipes () values ();
