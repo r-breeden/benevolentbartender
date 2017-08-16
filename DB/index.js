@@ -93,4 +93,18 @@ var deleteRecipe = (name) => {
 
 };
 
-module.exports = {getRecipes, grabNamedRecipe, addIngredient, addRecipe, editRecipe, deleteRecipe};
+getIngredients = (cb) => {
+
+  connection.query('SELECT name FROM ingredients', (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+
+};
+
+module.exports = {
+  getRecipes, grabNamedRecipe, addIngredient, addRecipe, editRecipe, deleteRecipe, getIngredients
+};
