@@ -7,9 +7,9 @@ var getRecipes = (ingStr, cb) => {
   //split string
   var ingArr = ingStr.split(',');
   //create query string
-  var queryStr = `SELECT * FROM recipes WHERE ingStr LIKE '%${ingArr[0]}%'`;
+  var queryStr = `SELECT * FROM recipes WHERE ingredients LIKE '%${ingArr[0]}%'`;
   for (var i = 1; i < ingArr.length; i++) {
-    queryStr += ` AND ingStr LIKE '%${ingArr[i]}%'`; 
+    queryStr += ` AND ingredients LIKE '%${ingArr[i]}%'`; 
   }
   //query db
   connection.query(queryStr, (err, results) => {
@@ -83,7 +83,7 @@ var editRecipe = (name, fieldObj) => {
 
 var deleteRecipe = (name) => {
 
-  connection.query(`DELETE FROM recipes WHERE name = ${name}`, (err, results) => {
+  connection.query(`DELETE FROM recipes WHERE name = '${name}'`, (err, results) => {
     if (err) {
       console.log(err, null);
     } else {
@@ -93,7 +93,7 @@ var deleteRecipe = (name) => {
 
 };
 
-getIngredients = (cb) => {
+var getIngredients = (cb) => {
 
   connection.query('SELECT name FROM ingredients', (err, results) => {
     if (err) {
