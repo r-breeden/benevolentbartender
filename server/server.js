@@ -21,32 +21,52 @@ app.get('/recipes', (req, res) => {
 });
 
 app.post('/getRecipes', (req, res) => { 
-  // console.log('HELLO', req.body);
-  // res.send();
-  //db.getRecipes();
-
-  var fakeRecipeList = {
-    array:[
-      {
-        ingredients: ['lemon', 'tequila', 'salt', 'regret'],
-        name: 'magarita',
-        instructions: 'How to make a margarita instructions',
-        url: '-hi, I should be a photo url-'
-      },
-      {
-        ingredients: ['lemon', 'tequila', 'salt', 'regret'],
-        name: 'magarita2',
-        instructions: 'How to make a margarita instructions',
-        url: '-hi, I should be a photo url-'
-      }
-    ]
+  console.log('HELLO', req.body);
+  var ingredientsList = '';
+  for (var i = 0; i < req.body['array[]'].length; i++){
+    if ( i === req.body['array[]'].length -1 ){
+      ingredientsList += req.body['array[]'][i];
+    } else {
+      ingredientsList += req.body['array[]'][i] + ',';
+    }
   }
-  res.send(fakeRecipeList);
+
+  db.getRecipes(ingredientsList, function(err, data){
+    if ( err ) { 
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  })
+
+
+  // var fakeRecipeList = {
+  //   array:[
+  //     {
+  //       ingredients: ['lemon', 'tequila', 'salt', 'regret'],
+  //       name: 'magarita',
+  //       instructions: 'How to make a margarita instructions',
+  //       url: '-hi, I should be a photo url-'
+  //     },
+  //     {
+  //       ingredients: ['lemon', 'tequila', 'salt', 'regret'],
+  //       name: 'magarita2',
+  //       instructions: 'How to make a margarita instructions',
+  //       url: '-hi, I should be a photo url-'
+  //     }
+  //   ]
+  // }
+  // res.send(fakeRecipeList);
 });
 
 app.get('/ingredients', (req, res) => {
-  var fakeDataIngredients = {ingredients: ['one', 'two', 'three', 'four']};
-  res.send(fakeDataIngredients);
+  db.getIngredients(function(err, data){
+    if( err ) { res.status(500).send(err); }
+    console.log('RYAN', data);
+    res.send(data);
+  })
+  // var fakeDataIngredients = {ingredients: ['one', 'two', 'three', 'four']};
+  // res.send(fakeDataIngredients);
 });
 
 app.post('/recipes', (req, res) => {

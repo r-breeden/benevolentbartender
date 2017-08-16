@@ -7,10 +7,11 @@ var getRecipes = (ingStr, cb) => {
   //split string
   var ingArr = ingStr.split(',');
   //create query string
-  var queryStr = `SELECT * FROM recipes WHERE ingStr LIKE '%${ingArr[0]}%'`;
+  var queryStr = `SELECT * FROM recipes WHERE ingredients LIKE '%${ingArr[0]}%'`;
   for (var i = 1; i < ingArr.length; i++) {
-    queryStr += ` AND ingStr LIKE '%${ingArr[i]}%'`; 
+    queryStr += ` AND ingredients LIKE '%${ingArr[i]}%'`; 
   }
+  console.log('i checked this in repl.it ', queryStr);
   //query db
   connection.query(queryStr, (err, results) => {
     if (err) {
@@ -93,7 +94,7 @@ var deleteRecipe = (name) => {
 
 };
 
-getIngredients = (cb) => {
+var getIngredients = (cb) => {
 
   connection.query('SELECT name FROM ingredients', (err, results) => {
     if (err) {

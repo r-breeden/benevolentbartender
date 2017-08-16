@@ -7,7 +7,7 @@ export class RecipeList extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      recipes: {array:[]}
+      recipes: []
     };
 
     this.getRecipes = this.getRecipes.bind(this);
@@ -21,10 +21,16 @@ export class RecipeList extends React.Component{
     $.ajax({
       url: '/getRecipes',
       type: 'POST',
-      data: this.props.list,
+      data: {array: this.props.list},
       success: function(data) {
+        //if only one recipe is returned data is an object
+        //if more than one recipe is returned data is an array
         console.log('post success');
-        self.setState({recipes: data})
+        if (Array.isArray(data)){
+          self.setState({recipes: data})
+        } else {
+          self.setState({recipes: [data]})
+        }
       },
       error: function(error) {
         console.log('error', error);
@@ -34,11 +40,11 @@ export class RecipeList extends React.Component{
 
   render(){
     //render if there is anything to render
-    if( this.state.recipes.array[0] !== undefined ){
+    if( this.state.recipes[0] !== undefined ){
       return(
         <div>
         {
-          this.state.recipes.array.map( (item, index) => {
+          this.state.recipes.map( (item, index) => {
             return(<RecipeCard key={index} recipe={item} />)
           })
         }
