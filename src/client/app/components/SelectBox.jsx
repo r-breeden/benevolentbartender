@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import { SearchForm } from './SearchForm.jsx';
 
-export class SelectBox extends React.Component{
-  constructor(props){
+/**
+*SelectBox 
+*/
+
+export class SelectBox extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       text: '',
@@ -15,6 +20,9 @@ export class SelectBox extends React.Component{
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+  * onSubmit
+  */
   onSubmit(e){
     e.preventDefault();
     var vettedIngredients = [];
@@ -25,9 +33,9 @@ export class SelectBox extends React.Component{
 
     //check if ingredients exist in db
     $.ajax({
-      url:'/ingredients',
+      url: '/ingredients',
       type: 'GET',
-      success: function(data){
+      success: function(data) {
         //data is ingredients list from db
         //see which ingredients exist in db
         refactorText = refactorText.split(',');
@@ -36,76 +44,82 @@ export class SelectBox extends React.Component{
         refactorText.forEach( function (item) {
           data.forEach( function (ingredient) {
             item = item.toLowerCase();
-            if (item === ingredient.name.toLowerCase().replace(/\s/g,'')){
+            if (item === ingredient.name.toLowerCase().replace(/\s/g,'')) {
               //put vetted ingredients into array
               vettedIngredients.push(item);
               //remove error msg
               self.setState({ingredNotFound: false});
             }
-          })
-        })
+          });
+        });
 
         //pass vetted ingredients list to app component (this.state.ingredients in app component)
         self.props.handler(vettedIngredients);
 
-        if ( vettedIngredients.length === 0 ){
-          self.setState({ingredNotFound: true})
+        if ( vettedIngredients.length === 0 ) {
+          self.setState({ingredNotFound: true});
         }
 
         self.setState({vetIngredients: vettedIngredients});
 
       },
-      error: function(data){
+      error: function(data) {
         console.log('get request FAILED', error);
       }
-    })
+    });
   }
 
-  //grab value from text box and set state on change
-  updateText(e){
+  /**
+  * updateText: grab value from text box and set state
+  */
+  updateText(e) {
     this.setState({text: e.target.value});
   }
 
-  render(){
-    if (this.state.ingredNotFound === true){
+  render() {
+
+    var subtitle = 'FIND WHAT DRINKS YOU CAN MAKE WITH WHAT YOU ALREADY HAVE';
+    var noIngredFoundMsg = 'Gasp! No ingredients found. Maybe check spelling?'
+
+    if (this.state.ingredNotFound === true) {
        return(
-        <div>
-          Seperate ingredients by commas
-          <form>
-            <input type='text' placeholder='enter your ingredients' value={this.state.text} onChange={this.updateText}></input>
-            <input type='submit' value='Submit' onClick={this.onSubmit}></input>
-          </form>
-          <p>No ingredients found matching query</p>
+        <div className="center">
+          <span className="header">{subtitle}</span>
+          <div id='min'>
+            <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+          </div>
+          <span className="error">{noIngredFoundMsg}</span>
         </div>
       );
-    } else if (this.state.vetIngredients[0] !== undefined){
+    } else if (this.state.vetIngredients[0] !== undefined) {
       //render vetted ingredients list
-      return(
+      return (
         <div>
-          Seperate ingredients by commas
-          <form>
-            <input type='text' placeholder='enter your ingredients' value={this.state.text} onChange={this.updateText}></input>
-            <input type='submit' value='Submit' onClick={this.onSubmit}></input>
-          </form>
-          <p> Selected Ingredients <br/>
-          (ingredients not available are not displayed)
-          </p>
-          <ul>
-          {this.state.vetIngredients.map( (item, index) => {
-            return(<li key={index} >{item}</li>)
-          })}
-          </ul>
+          <div className="center">
+            <span className="header">{subtitle}</span>
+            <div id='min'>
+              <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+            </div>
+          </div>
+          <div>
+            <span className="header">SELECTED INGREDIENTS</span>
+            <span className="error">INGREDIENTS NOT AVAILABLE ARE NOT DISPLAYED</span>
+            <ul>
+            {this.state.vetIngredients.map( (item, index) => {
+              return (<li key={index}>{item}</li>);
+            })}
+            </ul>
+          </div>
         </div>
       );
     //render if no ingredients listed yet
     } else {
-      return(
-        <div>
-          Seperate ingredients by commas
-          <form>
-            <input type='text' placeholder='enter your ingredients' value={this.state.text} onChange={this.updateText}></input>
-            <input type='submit' value='Submit' onClick={this.onSubmit}></input>
-          </form>
+      return (
+        <div className="center">
+          <span className="center header">{subtitle}</span>
+          <div id='min'>
+            <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+          </div>
         </div>
       );
     }
