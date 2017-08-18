@@ -42,10 +42,10 @@ export class RecipeList extends React.Component{
     //render if there is anything to render
     if( this.state.recipes[0] !== undefined ){
       return(
-        <div className="center">
+        <div>
         {
           this.state.recipes.map( (item, index) => {
-            return(<RecipeCard key={index} recipe={item} />)
+            return(<RecipeCard key={index} recipe={item}/>)
           })
         }
         </div>

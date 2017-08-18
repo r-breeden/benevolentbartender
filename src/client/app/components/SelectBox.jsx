@@ -68,35 +68,49 @@ export class SelectBox extends React.Component{
   }
 
   render(){
+
+    var subtitle = 'FIND WHAT DRINKS YOU CAN MAKE WITH WHAT YOU ALREADY HAVE';
+    var noIngredFoundMsg = 'Gasp! No ingredients found. Maybe check spelling?'
+
     if (this.state.ingredNotFound === true){
        return(
         <div className="center">
-          <span className="header">SEPERATE INGREDIENTS WITH COMMAS</span>
-          <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
-          <span className="error">No ingredients found matching query</span>
+          <span className="header">{subtitle}</span>
+          <div id='min'>
+            <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+          </div>
+          <span className="error">{noIngredFoundMsg}</span>
         </div>
       );
     } else if (this.state.vetIngredients[0] !== undefined){
       //render vetted ingredients list
       return(
-        <div className="center">
-          <span className="header">SEPERATE INGREDIENTS WITH COMMAS</span>
-          <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
-          <span className="header">SELECTED INGREDIENTS</span>
-          <span className="error">INGREDIENTS NOT AVAILABLE ARE NOT DISPLAYED</span>
-          <ul>
-          {this.state.vetIngredients.map( (item, index) => {
-            return(<li key={index} >{item}</li>)
-          })}
-          </ul>
+        <div>
+          <div className="center">
+            <span className="header">{subtitle}</span>
+            <div id='min'>
+              <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+            </div>
+          </div>
+          <div>
+            <span className="header">SELECTED INGREDIENTS</span>
+            <span className="error">INGREDIENTS NOT AVAILABLE ARE NOT DISPLAYED</span>
+            <ul>
+            {this.state.vetIngredients.map( (item, index) => {
+              return(<li key={index}>{item}</li>)
+            })}
+            </ul>
+          </div>
         </div>
       );
     //render if no ingredients listed yet
     } else {
       return(
         <div className="center">
-          <span className="header">SEPERATE INGREDIENTS WITH COMMAS</span>
-          <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+          <span className="center header">{subtitle}</span>
+          <div id='min'>
+            <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+          </div>
         </div>
       );
     }
