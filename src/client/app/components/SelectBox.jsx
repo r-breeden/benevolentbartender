@@ -20,6 +20,9 @@ export class SelectBox extends React.Component{
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+  * onSubmit
+  */
   onSubmit(e){
     e.preventDefault();
     var vettedIngredients = [];
@@ -66,7 +69,9 @@ export class SelectBox extends React.Component{
     })
   }
 
-  //grab value from text box and set state on change
+  /**
+  * updateText: grab value from text box and set state
+  */
   updateText(e){
     this.setState({text: e.target.value});
   }
