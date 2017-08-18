@@ -6,9 +6,12 @@ export class RecipeCard extends React.Component{
   render(){
     return(
       <ul className="card">
-        <li className="cardTextBGcolor">  {this.props.recipe.name}  </li>
-        <li className="cardTextBGcolor"> {this.props.recipe.imageUrl} </li>
-        <li className="cardTextBGcolor"> {this.props.recipe.ingredients} </li>
+        <div cardName="cardInfo">
+          <li className="cardTextBGcolor header">{this.props.recipe.name}</li>
+          <li className="cardTextBGcolor">{this.props.recipe.imageUrl}</li>
+          <div className="cardTextBGcolor cardIngredHeader">INGREDIENTS</div>
+          <li className="cardTextBGcolor">{this.props.recipe.ingredients}</li>
+        </div>
       </ul>
     );
   }
