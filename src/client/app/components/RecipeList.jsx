@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { RecipeCard } from './RecipeCard.jsx';
 import $ from 'jquery';
 
-export class RecipeList extends React.Component{
-  constructor(props){
+export class RecipeList extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       recipes: []
@@ -15,7 +15,7 @@ export class RecipeList extends React.Component{
   }
 
   //get all recipes from db
-  getRecipes(){
+  getRecipes() {
     var self = this; 
 
     $.ajax({
@@ -35,17 +35,17 @@ export class RecipeList extends React.Component{
       error: function(error) {
         console.log('error', error);
       }
-    })
+    });
   }
 
-  render(){
+  render() {
     //render if there is anything to render
-    if( this.state.recipes[0] !== undefined ){
-      return(
+    if ( this.state.recipes[0] !== undefined ) {
+      return (
         <div>
         {
           this.state.recipes.map( (item, index) => {
-            return(<RecipeCard key={index} recipe={item} />)
+            return (<RecipeCard key={index} recipe={item}/>);
           })
         }
         </div>
