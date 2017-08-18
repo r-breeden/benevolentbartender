@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { SelectBox } from './SelectBox.jsx';
 import { RecipeList } from './RecipeList.jsx';
 
+/**
+*App renders all other components
+**/
 
 export class App extends React.Component{
   constructor(props) {
@@ -14,28 +17,29 @@ export class App extends React.Component{
     this.handler = this.handler.bind(this);
   }
 
+
   //hand this to child
   //child able to set state
-  handler(vetted){
+  handler(vetted) {
     this.setState({
       ingredients: vetted
-    })
+    });
   }
 
-  render(){
-    if ( this.state.ingredients[0] !== undefined){
-      return(
+  render() {
+    if ( this.state.ingredients[0] !== undefined) {
+      return (
       <div>
-        <h1>Benevolent Bartender</h1>
+        <img className="imgCenter" src='../img/title.png' />
         <SelectBox handler={this.handler}/>
-        <h3>Recipe List</h3>
+        <p className="header">RECIPES</p>
         <RecipeList list={this.state.ingredients}/>
       </div>
       );
     } else {
-      return(
+      return (
       <div>
-        <h1>Benevolent Bartender</h1>
+         <img className="imgCenter" src='../img/title.png' />
         <SelectBox handler={this.handler}/>
       </div>
       );
