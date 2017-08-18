@@ -14,6 +14,8 @@ export class App extends React.Component{
     this.handler = this.handler.bind(this);
   }
 
+  //hand this to child
+  //child able to set state
   handler(vetted){
     this.setState({
       ingredients: vetted
@@ -21,12 +23,22 @@ export class App extends React.Component{
   }
 
   render(){
-    return(
+    if ( this.state.ingredients[0] !== undefined){
+      return(
       <div>
         <h1>Benevolent Bartender</h1>
         <SelectBox handler={this.handler}/>
+        <h3>Recipe List</h3>
         <RecipeList list={this.state.ingredients}/>
       </div>
-    );
+      );
+    } else {
+      return(
+      <div>
+        <h1>Benevolent Bartender</h1>
+        <SelectBox handler={this.handler}/>
+      </div>
+      );
+    }
   }
 }

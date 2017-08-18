@@ -20,13 +20,37 @@ app.get('/recipes', (req, res) => {
   });
 });
 
+app.post('/getRecipes', (req, res) => { 
+  console.log('HELLO', req.body);
+  var ingredientsList = '';
+  for (var i = 0; i < req.body['array[]'].length; i++){
+    if ( i === req.body['array[]'].length -1 ){
+      ingredientsList += req.body['array[]'][i];
+    } else {
+      ingredientsList += req.body['array[]'][i] + ',';
+    }
+  }
+
+  db.getRecipes(ingredientsList, function(err, data){
+    if ( err ) { 
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  })
+});
+
 app.get('/ingredients', (req, res) => {
-  var fakeDataIngredients = {ingredients: ['one', 'two', 'three', 'four']};
-  res.send(fakeDataIngredients);
+  db.getIngredients(function(err, data){
+    if( err ) { res.status(500).send(err); }
+    console.log('RYAN', data);
+    res.send(data);
+  })
 });
 
 app.post('/recipes', (req, res) => {
   //assuming req.body is a string
+  console.log('hiya', req.body);
 
   var fakeData = {
     ingredients: ['lemon', 'tequila', 'salt', 'regret'],
@@ -36,14 +60,6 @@ app.post('/recipes', (req, res) => {
   }
 
   res.send(fakeData);
-  // db.getRecipes(req.body, (err, data)=>{
-  //   if (err) {
-  //     res.status(500).send(err);
-  //   } else {
-  //     console.log('')
-  //     res.status(200).send(data);
-  //   }
-  // });
 });
 
 app.listen(port, function() {

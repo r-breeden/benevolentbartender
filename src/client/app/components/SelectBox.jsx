@@ -7,7 +7,8 @@ export class SelectBox extends React.Component{
     super(props);
     this.state = {
       text: '',
-      vetIngredients: []
+      vetIngredients: [],
+      ingredNotFound: false
     };
 
     this.updateText = this.updateText.bind(this);
@@ -17,7 +18,6 @@ export class SelectBox extends React.Component{
   onSubmit(e){
     e.preventDefault();
     var vettedIngredients = [];
-
     //remove white spaces 
     var refactorText = this.state.text;
     refactorText = refactorText.replace(/\s/g,'');
@@ -28,35 +28,35 @@ export class SelectBox extends React.Component{
       url:'/ingredients',
       type: 'GET',
       success: function(data){
+        //data is ingredients list from db
         //see which ingredients exist in db
         refactorText = refactorText.split(',');
+        //item is user input
+        //ingredient is list of ingredeients from db
         refactorText.forEach( function (item) {
-          data.ingredients.forEach( function (ingredient) {
+          data.forEach( function (ingredient) {
             item = item.toLowerCase();
-            if (item === ingredient){
+            if (item === ingredient.name.toLowerCase().replace(/\s/g,'')){
+              //put vetted ingredients into array
               vettedIngredients.push(item);
+              //remove error msg
+              self.setState({ingredNotFound: false});
             }
           })
         })
+
         //pass vetted ingredients list to app component (this.state.ingredients in app component)
         self.props.handler(vettedIngredients);
+
+        if ( vettedIngredients.length === 0 ){
+          self.setState({ingredNotFound: true})
+        }
+
+        self.setState({vetIngredients: vettedIngredients});
+
       },
       error: function(data){
         console.log('get request FAILED', error);
-      }
-    })
-
-
-    //request recipes from list of ingredients that do exist
-    $.ajax({
-      url: '/recipes',
-      type: 'POST',
-      data: this.state.vetIngredients,
-      success: function(data){
-        console.log('post request SUCCESS');
-      },
-      error: function(error){
-        console.log('post request FAILED', error);
       }
     })
   }
@@ -67,7 +67,18 @@ export class SelectBox extends React.Component{
   }
 
   render(){
-    if (this.state.vetIngredients[0] !== undefined){
+    if (this.state.ingredNotFound === true){
+       return(
+        <div>
+          Seperate ingredients by commas
+          <form>
+            <input type='text' placeholder='enter your ingredients' value={this.state.text} onChange={this.updateText}></input>
+            <input type='submit' value='Submit' onClick={this.onSubmit}></input>
+          </form>
+          <p>No ingredients found matching query</p>
+        </div>
+      );
+    } else if (this.state.vetIngredients[0] !== undefined){
       //render vetted ingredients list
       return(
         <div>
