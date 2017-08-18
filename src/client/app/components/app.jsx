@@ -26,16 +26,16 @@ export class App extends React.Component{
     if ( this.state.ingredients[0] !== undefined){
       return(
       <div>
-        <h1>Benevolent Bartender</h1>
+        <h1>BENEVOLENT BARTENDER</h1>
         <SelectBox handler={this.handler}/>
-        <h3>Recipe List</h3>
+        <p className="center header">RECIPES</p>
         <RecipeList list={this.state.ingredients}/>
       </div>
       );
     } else {
       return(
       <div>
-        <h1>Benevolent Bartender</h1>
+        <h1>BENEVOLENT BARTENDER</h1>
         <SelectBox handler={this.handler}/>
       </div>
       );

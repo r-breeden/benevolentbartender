@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import { SearchForm } from './SearchForm.jsx';
 
 export class SelectBox extends React.Component{
   constructor(props){
@@ -69,27 +70,20 @@ export class SelectBox extends React.Component{
   render(){
     if (this.state.ingredNotFound === true){
        return(
-        <div>
-          Seperate ingredients by commas
-          <form>
-            <input type='text' placeholder='enter your ingredients' value={this.state.text} onChange={this.updateText}></input>
-            <input type='submit' value='Submit' onClick={this.onSubmit}></input>
-          </form>
-          <p>No ingredients found matching query</p>
+        <div className="center">
+          <span className="header">SEPERATE INGREDIENTS WITH COMMAS</span>
+          <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+          <span className="error">No ingredients found matching query</span>
         </div>
       );
     } else if (this.state.vetIngredients[0] !== undefined){
       //render vetted ingredients list
       return(
-        <div>
-          Seperate ingredients by commas
-          <form>
-            <input type='text' placeholder='enter your ingredients' value={this.state.text} onChange={this.updateText}></input>
-            <input type='submit' value='Submit' onClick={this.onSubmit}></input>
-          </form>
-          <p> Selected Ingredients <br/>
-          (ingredients not available are not displayed)
-          </p>
+        <div className="center">
+          <span className="header">SEPERATE INGREDIENTS WITH COMMAS</span>
+          <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
+          <span className="header">SELECTED INGREDIENTS</span>
+          <span className="error">INGREDIENTS NOT AVAILABLE ARE NOT DISPLAYED</span>
           <ul>
           {this.state.vetIngredients.map( (item, index) => {
             return(<li key={index} >{item}</li>)
@@ -100,12 +94,9 @@ export class SelectBox extends React.Component{
     //render if no ingredients listed yet
     } else {
       return(
-        <div>
-          Seperate ingredients by commas
-          <form>
-            <input type='text' placeholder='enter your ingredients' value={this.state.text} onChange={this.updateText}></input>
-            <input type='submit' value='Submit' onClick={this.onSubmit}></input>
-          </form>
+        <div className="center">
+          <span className="header">SEPERATE INGREDIENTS WITH COMMAS</span>
+          <SearchForm tex={this.state.text} updateText={this.updateText} onSubmit={this.onSubmit}/>
         </div>
       );
     }
