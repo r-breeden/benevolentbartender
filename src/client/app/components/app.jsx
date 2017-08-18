@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { SelectBox } from './SelectBox.jsx';
 import { RecipeList } from './RecipeList.jsx';
 
+/**
+*App renders all other components
+**/
 
 export class App extends React.Component{
   constructor(props) {

@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { SearchForm } from './SearchForm.jsx';
 
+/**
+*SelectBox 
+*/
+
 export class SelectBox extends React.Component{
   constructor(props){
     super(props);
