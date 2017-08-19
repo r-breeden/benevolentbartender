@@ -133,8 +133,10 @@ var init = function () {
 
   //Refactor to await && convert getIngredientList.sh to a promise request
   /** Use the ingredient list to iterate **/
-  /** Insert each ingredient into the DB and return promise request to grab eac **/
-  /**  **/
+  /** Insert each ingredient into the DB **/
+  /** Once Insert Complete, Grab all Unique Ids **/
+  /** Create another array of request promises to get all drink info **/
+  /** Update all drink recipes with new information  **/
   Promise.map(datalist.drinks ,(drink) => {
     db.addIngredient(drink.strIngredient1.replace("'","\\'"));
     return getDrinks(drink.strIngredient1);
