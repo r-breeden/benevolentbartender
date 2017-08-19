@@ -3,16 +3,17 @@ const mysqlConfig = require('./config');
 
 var connection = mysql.createConnection(mysqlConfig);
 
+/**
+ * 
+ * query database for recipes using a string of ingredients separated by commas  
+ */
 var getRecipes = (ingStr, cb) => {
-  //split string
   var ingArr = ingStr.split(',');
-  //create query string
   var queryStr = `SELECT * FROM recipes WHERE ingredients LIKE '%${ingArr[0]}%'`;
   for (var i = 1; i < ingArr.length; i++) {
     queryStr += ` AND ingredients LIKE '%${ingArr[i]}%'`; 
   }
-  console.log('i checked this in repl.it ', queryStr);
-  //query db
+  
   connection.query(queryStr, (err, results) => {
     if (err) {
       cb(err, null);
@@ -22,6 +23,10 @@ var getRecipes = (ingStr, cb) => {
   });
 };
 
+/**
+ * 
+ * query database for a single recipe based on a given name 
+ */
 var grabNamedRecipe = (name, cb) => {
 
   connection.query(`SELECT * FROM recipes WHERE name = '${name}'`, (err, results) => {
@@ -34,6 +39,10 @@ var grabNamedRecipe = (name, cb) => {
 
 };
 
+/**
+ * 
+ * insert an ingredient into the ingredients table  
+ */
 var addIngredient = (name) => {
 
   connection.query(`INSERT INTO ingredients (name) VALUES ('${name}')`, (err, results) => {
@@ -46,7 +55,10 @@ var addIngredient = (name) => {
 
 };
 
-// duplicates should be handled by unique contraint on name field?
+/**
+ * 
+ * insert an recipe into the recipes table   
+ */
 var addRecipe = (recipeObj) => {
 
   var queryStr = `INSERT INTO recipes (name, instructions, ingredients, measurements, imageUrl) 
@@ -62,10 +74,13 @@ var addRecipe = (recipeObj) => {
 
 };
 
-//assumes input of a string(name) & an object with properties named for fields to be updated w/ the values to replace current
-//can be updated later if this needs to be changed
+/**
+ * 
+ * change fields in a recipe of given name 
+ * fieldObj should contain properties and values that correspond to fields to be updated and the values to be inserted
+ */
 var editRecipe = (name, fieldObj) => {
-  //create query string
+
   var queryStr = `UPDATE recipes SET `;
   for (var key in fieldObj) {
     queryStr += `${key} = '${fieldObj[key]}', `;
@@ -82,6 +97,10 @@ var editRecipe = (name, fieldObj) => {
 
 };
 
+/**
+ * 
+ * delete a recipe of a given name
+ */
 var deleteRecipe = (name) => {
 
   connection.query(`DELETE FROM recipes WHERE name = '${name}'`, (err, results) => {
@@ -94,6 +113,10 @@ var deleteRecipe = (name) => {
 
 };
 
+/**
+ * 
+ * return all ingredients from ingredients table 
+ */
 var getIngredients = (cb) => {
 
   connection.query('SELECT name FROM ingredients', (err, results) => {
