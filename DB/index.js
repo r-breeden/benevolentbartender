@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const mysqlConfig = require('./config');
+const Promise = global.Promise;
 
 var connection = mysql.createConnection(mysqlConfig);
 
@@ -47,9 +48,9 @@ var addIngredient = (name) => {
 
   connection.query(`INSERT INTO ingredients (name) VALUES ('${name}')`, (err, results) => {
     if (err) {
-      console.log(err, null);
+      // console.log(err, null);
     } else {
-      console.log(null, results);
+      // console.log(null, results);
     }
   });
 
@@ -129,6 +130,66 @@ var getIngredients = (cb) => {
 
 };
 
+<<<<<<< Updated upstream
 module.exports = {
   getRecipes, grabNamedRecipe, addIngredient, addRecipe, editRecipe, deleteRecipe, getIngredients
+=======
+
+/** Promise version of returning all data **/
+var getAllRecipes = () => {
+  return new Promise((resolve, reject) => { 
+    connection.query('SELECT * FROM recipes', (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    })
+  });
+};
+
+
+/** Insert Many Records at a Time, "soft" error in that duplicates are overriden with newer **/
+var bulkInsertRecipes = (values) => {
+
+  var options = {
+    sql: 'INSERT INTO recipes (id, name, imageUrl) VALUES ? ON DUPLICATE KEY UPDATE id=VALUES(id),name=VALUES(name),imageUrl=VALUES(imageUrl)',
+    values: [values]
+  };
+
+  return new Promise((resolve, reject) => {
+    connection.query(options, (err, results) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(results);
+      }
+    })
+  }) 
+
+};
+
+/** Update many records at a time on duplicate, soft "error" in that it overrides duplicate records**/
+var bulkUpdateRecipes = (values) => {
+
+  var options = {
+    sql: 'INSERT INTO recipes (id, instructions, ingredients, measurements) VALUES ? ON DUPLICATE KEY UPDATE id=VALUES(id),instructions=VALUES(instructions),ingredients=VALUES(ingredients),measurements=VALUES(measurements)',
+    values: [values]
+  };
+
+  return new Promise((resolve, reject) => {
+    connection.query(options, (err, results) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(results.message);
+    }
+    })
+  })
+};
+
+module.exports = {
+  getAllRecipes, getRecipes, grabNamedRecipe, addIngredient, addRecipe, editRecipe, deleteRecipe, getIngredients
+  ,bulkInsertRecipes, bulkUpdateRecipes
+>>>>>>> Stashed changes
 };
