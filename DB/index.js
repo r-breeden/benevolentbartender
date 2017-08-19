@@ -130,10 +130,6 @@ var getIngredients = (cb) => {
 
 };
 
-<<<<<<< Updated upstream
-module.exports = {
-  getRecipes, grabNamedRecipe, addIngredient, addRecipe, editRecipe, deleteRecipe, getIngredients
-=======
 
 /** Promise version of returning all data **/
 var getAllRecipes = () => {
@@ -191,5 +187,4 @@ var bulkUpdateRecipes = (values) => {
 module.exports = {
   getAllRecipes, getRecipes, grabNamedRecipe, addIngredient, addRecipe, editRecipe, deleteRecipe, getIngredients
   ,bulkInsertRecipes, bulkUpdateRecipes
->>>>>>> Stashed changes
 };

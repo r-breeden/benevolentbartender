@@ -10,15 +10,8 @@
 const datalist = require('./ingredientsList.json');
 const path = require('path');
 const axios = require('axios');
-<<<<<<< Updated upstream
-const fs = require('file-system');
-const Promise = global.Promise;
-// const db = require('index.js');
-
-=======
 const Promise = require('bluebird');
 const db = require('./index.js');
->>>>>>> Stashed changes
 
 var writeJSON = (fileName, data) => {
 
@@ -28,9 +21,6 @@ var writeJSON = (fileName, data) => {
     } else {
       console.logsh ('File has been Saved for ', fileName)
     }
-<<<<<<< Updated upstream
-  })
-=======
   });
 
 };
@@ -54,9 +44,6 @@ var sqlDrinkFormat = function(drinkObj) {
     console.log('ERROR FOR ', drinkObj)
   }
 };
->>>>>>> Stashed changes
-
-}
 
 /** Object/Ingredient Name is Required to Pull API Correctly **/
 var getDrinks = function(ingredient) {
@@ -65,27 +52,13 @@ var getDrinks = function(ingredient) {
   var url = 'http://www.thecocktaildb.com/api/json/v1/1/filter.php'
   var options = {
     contentType: 'application/json',
-<<<<<<< Updated upstream
-    params: {i: ingredient}
-  }
-=======
     params: {i: ingredient.replace("'","\\'")},
   };
->>>>>>> Stashed changes
 
 /** Option to either write locally or to save to DB **/ 
 
   return axios.get(url, options)
   .then((res) => {
-<<<<<<< Updated upstream
-    var data = JSON.stringify(res.data);
-    //db.insertDrinks(data);
-    writeJSON(ingredient.toLowerCase().replace(' ','_')+'_drinks.csv', data);
-  })
-  .catch((err) => {
-    console.log('API Call Rejected ', err);
-  })
-=======
     var data = res.data;
     if (data.drinks === undefined) {
       console.log(res)
@@ -149,29 +122,11 @@ var getRecipeInfo = function(id) {
   .catch((err) => {
     return err;
   });
->>>>>>> Stashed changes
 
 }
 
 /** Invocation of Code **/ 
 /** Iteration for each ingredient in the object item **/ 
-<<<<<<< Updated upstream
-for (var i = 0; i < datalist.drinks.length; i ++) {
-  var promiseList = [];
-  promiseList.push(getDrinks(datalist.drinks[i].strIngredient1));
-}
-
-Promise.all(promiseList)
-  .then((values) => {
-    console.log('Saved All Files');
-  })
-  .then(()=>{
-    
-  })
-  .catch((reason) => {
-    console.log(reason);
-  })
-=======
 /** Once all Drinks Have Been Inserted Extract all Drink Ids **/
 /** Iterate through all DrinkIds and Update All Drink into DB **/ 
 var init = function () {
@@ -216,5 +171,4 @@ var init = function () {
 
 init();
 
->>>>>>> Stashed changes
 
