@@ -12,6 +12,7 @@ const path = require('path');
 const axios = require('axios');
 const Promise = require('bluebird');
 const db = require('./index.js');
+const axiosRetry = require('axios-retry');
 
 var writeJSON = (fileName, data) => {
 
@@ -49,19 +50,21 @@ var sqlDrinkFormat = function(drinkObj) {
 var getDrinks = function(ingredient) {
   
   /** EndPoint to Get Drinks per Each Ingredient **/ 
-  var url = 'http://www.thecocktaildb.com/api/json/v1/1/filter.php'
+  var url = 'http://www.thecocktaildb.com/api/json/v1/3847/filter.php'
   var options = {
     contentType: 'application/json',
     params: {i: ingredient.replace("'","\\'")},
   };
 
 /** Option to either write locally or to save to DB **/ 
+  axiosRetry(axios, { retries: 3});
 
   return axios.get(url, options)
   .then((res) => {
+    console.log('Success! Got Ingredient Data for', res.config.params.i)
     var data = res.data;
     if (data.drinks === undefined) {
-      console.log(res)
+      console.log('Error getting', res.config.params.i)
     }
     return sqlDrinkFormat(data);
       
@@ -69,7 +72,7 @@ var getDrinks = function(ingredient) {
     // writeJSON(ingredient.toLowerCase().replace(' ', '_') + '_drinks.json', data);
   })
   .catch((err) => {
-    console.log('Error Retrieving Data ', err, err.headers);
+    console.log('Error Retrieving Drink Data ', err);
   });
 
 };
@@ -77,17 +80,18 @@ var getDrinks = function(ingredient) {
 var getRecipeInfo = function(id) {
 
   /** EndPoint to Get Drinks All Info **/ 
-  var url = 'http://www.thecocktaildb.com/api/json/v1/1/lookup.php';
+  var url = 'http://www.thecocktaildb.com/api/json/v1/3847/lookup.php';
   var options = {
     contentType: 'application/json',
     params: {i: id}
   };
 
+  axiosRetry(axios, { retries: 3});
 /** Option to either write locally or to save to DB **/ 
 /** Combines the response into a DB friendly format **/
   return axios.get(url, options)
   .then((res) => {
-
+    console.log('Success! Received Response for All Recipe for', res.config.params.i)
     var drink = res.data.drinks[0];
     var ingArr = [];
     var measureArr = [];
@@ -120,6 +124,7 @@ var getRecipeInfo = function(id) {
     // writeJSON(drinkId.toLowerCase().replace(' ', '_') + '_drink.json', data);
   })
   .catch((err) => {
+    console.log('Failed to get Data',err);
     return err;
   });
 
@@ -130,6 +135,7 @@ var getRecipeInfo = function(id) {
 /** Once all Drinks Have Been Inserted Extract all Drink Ids **/
 /** Iterate through all DrinkIds and Update All Drink into DB **/ 
 var init = function () {
+
 
   //Refactor to await && convert getIngredientList.sh to a promise request
   /** Use the ingredient list to iterate **/
@@ -142,6 +148,7 @@ var init = function () {
     return getDrinks(drink.strIngredient1);
   },{concurrency: 75})
   .then((results) => {
+    console.log('Got the Results');
     return results.reduce( (prev,curr) => prev.concat(curr), [])
   })
   .then((list) => {
