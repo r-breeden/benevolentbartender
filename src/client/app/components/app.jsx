@@ -4,8 +4,9 @@ import { SelectBox } from './SelectBox.jsx';
 import { RecipeList } from './RecipeList.jsx';
 
 /**
-*App renders all other components
-**/
+*App 
+*
+*/
 
 export class App extends React.Component{
   constructor(props) {
@@ -39,7 +40,7 @@ export class App extends React.Component{
     } else {
       return (
       <div>
-         <img className="imgCenter" src='../img/title.png' />
+        <img className="imgCenter" src='../img/title.png' />
         <SelectBox handler={this.handler}/>
       </div>
       );

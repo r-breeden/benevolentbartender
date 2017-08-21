@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import { RecipeCard } from './RecipeCard.jsx';
 import $ from 'jquery';
 
+/**
+*RecipeList
+*/
+
 export class RecipeList extends React.Component {
   constructor(props) {
     super(props);

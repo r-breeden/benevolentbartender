@@ -4,7 +4,11 @@ import $ from 'jquery';
 import { SearchForm } from './SearchForm.jsx';
 
 /**
-*SelectBox 
+*SelectBox
+*Until input is entered this will render SearchForm.
+*If user inputs ingredients that are not found in the db this will render error msg.
+*If user inputs ingredients that exist in db this will generate a list of recipies via 
+*the SearchForm component. 
 */
 
 export class SelectBox extends React.Component {
@@ -63,7 +67,7 @@ export class SelectBox extends React.Component {
         self.setState({vetIngredients: vettedIngredients});
 
       },
-      error: function(data) {
+      error: function(error) {
         console.log('get request FAILED', error);
       }
     });
