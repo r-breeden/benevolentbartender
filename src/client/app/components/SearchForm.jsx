@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+* Takes user input from a text box updates SelectBox.state.text
+* props(from SelectBox ): onSubmit , tex, updateText
+*/
+
 export class SearchForm extends React.Component{
   render(){
     return(

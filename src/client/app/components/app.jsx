@@ -4,8 +4,8 @@ import { SelectBox } from './SelectBox.jsx';
 import { RecipeList } from './RecipeList.jsx';
 
 /**
-*App 
-*
+*Parent component. Renders SelectBox and RecipeList
+*Select box updates App.state.ingredients via handler function.
 */
 
 export class App extends React.Component{
