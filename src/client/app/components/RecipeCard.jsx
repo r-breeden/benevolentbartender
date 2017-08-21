@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+/**
+* Renders recipes 
+* Props: recipe.name, recipe.imageUrl, recipe.ingredients
+*/
 
 export class RecipeCard extends React.Component {
   render() {

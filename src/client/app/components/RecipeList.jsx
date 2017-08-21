@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import { RecipeCard } from './RecipeCard.jsx';
 import $ from 'jquery';
 
+/**
+*Requests recipes from the db that contain the user inputted
+*Renders recipe cards 
+*/
+
 export class RecipeList extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +19,7 @@ export class RecipeList extends React.Component {
     this.getRecipes();
   }
 
-  //get all recipes from db
+  //get recipes that have the user inputted ingredients in the recipe ingredients list from db
   getRecipes() {
     var self = this; 
 
@@ -33,7 +38,7 @@ export class RecipeList extends React.Component {
         }
       },
       error: function(error) {
-        console.log('error', error);
+        console.log('error: ', error);
       }
     });
   }
@@ -50,9 +55,9 @@ export class RecipeList extends React.Component {
         }
         </div>
       );
-    //if no input this should not be called
+    //if no input
     } else {
-      return (<div>nothing</div>);
+      return (<div></div>);
     }
     
   }

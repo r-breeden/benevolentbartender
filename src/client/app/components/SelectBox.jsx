@@ -4,7 +4,11 @@ import $ from 'jquery';
 import { SearchForm } from './SearchForm.jsx';
 
 /**
-*SelectBox 
+*SelectBox
+*Until input is entered this will render SearchForm.
+*If user inputs ingredients that are not found in the db this will render error msg.
+*If user inputs ingredients that exist in db this will generate a list of recipies via 
+*the SearchForm component. 
 */
 
 export class SelectBox extends React.Component {
@@ -21,7 +25,9 @@ export class SelectBox extends React.Component {
   }
 
   /**
-  * onSubmit
+  * takes user input (ingredients) and compares them against the ingredients in db
+  * matching ingredients are added to the app components state via the handler prop
+  * vetted ingredients are also added to SelectBox's state as vetIngredients. 
   */
   onSubmit(e){
     e.preventDefault();
@@ -45,8 +51,12 @@ export class SelectBox extends React.Component {
           data.forEach( function (ingredient) {
             item = item.toLowerCase();
             if (item === ingredient.name.toLowerCase().replace(/\s/g,'')) {
-              //put vetted ingredients into array
-              vettedIngredients.push(item);
+              //check if ingredient is a duplicate
+              if ( !vettedIngredients.includes(item)) {
+                //if not already in vettedIngredients list 
+                //put vetted ingredients into array
+                vettedIngredients.push(item);
+              }
               //remove error msg
               self.setState({ingredNotFound: false});
             }
@@ -55,7 +65,9 @@ export class SelectBox extends React.Component {
 
         //pass vetted ingredients list to app component (this.state.ingredients in app component)
         self.props.handler(vettedIngredients);
-
+        //if there are no ingredients that the user input
+        //that match those in the db set ingredNotFound to true
+        //this will result in rendering error msg
         if ( vettedIngredients.length === 0 ) {
           self.setState({ingredNotFound: true});
         }
@@ -63,7 +75,7 @@ export class SelectBox extends React.Component {
         self.setState({vetIngredients: vettedIngredients});
 
       },
-      error: function(data) {
+      error: function(error) {
         console.log('get request FAILED', error);
       }
     });
@@ -81,6 +93,8 @@ export class SelectBox extends React.Component {
     var subtitle = 'FIND WHAT DRINKS YOU CAN MAKE WITH WHAT YOU ALREADY HAVE';
     var noIngredFoundMsg = 'Gasp! No ingredients found. Maybe check spelling?'
 
+    //No ingredients found error message 
+    //(User inputs ingredients that are not found in the db)
     if (this.state.ingredNotFound === true) {
        return(
         <div className="center">
@@ -93,6 +107,7 @@ export class SelectBox extends React.Component {
       );
     } else if (this.state.vetIngredients[0] !== undefined) {
       //render vetted ingredients list
+      //(user ingredients input are found in the db)
       return (
         <div>
           <div className="center">
