@@ -156,7 +156,7 @@ var bulkInsertRecipes = (values) => {
   return new Promise((resolve, reject) => {
     connection.query(options, (err, results) => {
       if (err) {
-        reject(err)
+        reject(err.message)
       } else {
         resolve(results);
       }
@@ -176,7 +176,7 @@ var bulkUpdateRecipes = (values) => {
   return new Promise((resolve, reject) => {
     connection.query(options, (err, results) => {
     if (err) {
-      reject(err);
+      reject(err.message);
     } else {
       resolve(results.message);
     }
@@ -184,7 +184,43 @@ var bulkUpdateRecipes = (values) => {
   })
 };
 
+var truncateRecipes = () => {
+
+  var options = {
+    sql: 'Truncate benbar.recipes'
+  }
+
+  return new Promise((resolve, reject) => {
+    connection.query(options, (err, results) => {
+    if (err) {
+      reject('Failed to Truncate Recipes', err.message);
+    } else {
+      resolve(results.message);
+    }
+    })  
+  })
+
+}
+
+var truncateIngredients = () => {
+  
+  var options = {
+    sql: 'Truncate benbar.ingredients'
+  }
+
+  return new Promise((resolve, reject) => {
+    connection.query(options, (err, results) => {
+    if (err) {
+      reject('Failed to Truncate Ingredients Table ', err.message);
+    } else {
+      resolve(results.message);
+    }
+    })  
+  })  
+}  
+
+
 module.exports = {
   getAllRecipes, getRecipes, grabNamedRecipe, addIngredient, addRecipe, editRecipe, deleteRecipe, getIngredients
-  ,bulkInsertRecipes, bulkUpdateRecipes
+  ,bulkInsertRecipes, bulkUpdateRecipes, truncateRecipes, truncateIngredients
 };

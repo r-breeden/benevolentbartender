@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "axios-retry": "^3.0.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "file-system": "^2.2.2",
